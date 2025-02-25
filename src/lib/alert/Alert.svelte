@@ -1,43 +1,89 @@
 <script lang="ts">
-  import TransitionFrame from '$lib/utils/TransitionFrame.svelte';
-  import type { ComponentProps } from 'svelte';
-  import { twMerge } from 'tailwind-merge';
-  import CloseButton from '../utils/CloseButton.svelte';
+  import { getContext } from "svelte";
+  import { type AlertProps as Props, alert } from ".";
+  import { CloseButton } from "$lib";
+  import { fade } from "svelte/transition";
+  import type { ParamsType } from "$lib/types";
 
-  interface $$Props extends ComponentProps<TransitionFrame> {
-    dismissable?: boolean;
-    defaultClass?: string;
-  }
+  let { children, icon, alertStatus = $bindable(true), closeIcon, color = "primary", rounded = true, border, class: className, dismissable, transition = fade, params, onclick, ...restProps }: Props = $props();
 
-  export let dismissable: $$Props['dismissable'] = false;
-  export let defaultClass: $$Props['defaultClass'] = 'p-4 gap-3 text-sm';
+  // Theme context
+  const context = getContext<Record<string, object>>("themeConfig");
+  // Use theme context if available, otherwise fallback to default
+  const alertTheme = context?.alert || alert;
 
-  let divClass: string;
-  $: divClass = twMerge(defaultClass, ($$slots.icon || dismissable) && 'flex items-center', $$props.class);
+  let divCls = $derived(
+    alertTheme({
+      color,
+      rounded,
+      border,
+      icon: !!icon,
+      dismissable,
+      className
+    })
+  );
+  // $inspect('transition: ', transition);
 </script>
 
-<TransitionFrame {dismissable} color="primary" role="alert" rounded {...$$restProps} class={divClass} on:close let:close>
-  {#if $$slots.icon}
-    <slot name="icon" />
-  {/if}
+{#if alertStatus}
+  <div role="alert" {...restProps} transition:transition={params as ParamsType} class={divCls}>
+    {#if icon}
+      {@render icon()}
+    {/if}
 
-  {#if $$slots.icon || dismissable}
-    <div><slot /></div>
-  {:else}
-    <slot />
-  {/if}
+    {#if icon || dismissable}
+      <div>
+        {@render children()}
+      </div>
+    {:else}
+      {@render children()}
+    {/if}
 
-  {#if dismissable}
-    <slot name="close-button" {close}>
-      <CloseButton class="ms-auto -me-1.5 -my-1.5 dark:hover:bg-gray-700" color={$$restProps.color} on:click={close} on:click on:change on:keydown on:keyup on:focus on:blur on:mouseenter on:mouseleave />
-    </slot>
-  {/if}
-</TransitionFrame>
+    {#if dismissable}
+      {#if closeIcon}
+        <button
+          type="button"
+          class="text-primary-500 hover:bg-primary-200 focus:ring-primary-400 dark:hover:bg-primary-800 dark:hover:text-primary-300 m-0.5 ms-1.5 -me-1.5 rounded-sm p-0.5 whitespace-normal focus:ring-1 focus:outline-hidden"
+          aria-label="Remove badge"
+          onclick={() => {
+            alertStatus = false;
+          }}
+        >
+          <span class="sr-only">Remove alert</span>
+          {#if icon}
+            {@render icon()}
+          {/if}
+        </button>
+      {:else if onclick}
+        <CloseButton class="-my-1.5 ms-auto -me-1.5 dark:hover:bg-gray-700" {color} ariaLabel="Remove badge" {onclick} />
+      {:else}
+        <CloseButton
+          class="-my-1.5 ms-auto -me-1.5 dark:hover:bg-gray-700"
+          {color}
+          ariaLabel="Remove alert"
+          onclick={() => {
+            alertStatus = false;
+          }}
+        />
+      {/if}
+    {/if}
+  </div>
+{/if}
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let dismissable: $$Props['dismissable'] = false;
-@prop export let defaultClass: $$Props['defaultClass'] = 'p-4 gap-3 text-sm';
+@props: children: any;
+@props:icon: any;
+@props:alertStatus: any = $bindable(true);
+@props:closeIcon: any;
+@props:color: any = "primary";
+@props:rounded: any = true;
+@props:border: any;
+@props:class: string;
+@props:dismissable: any;
+@props:transition: any = fade;
+@props:params: any;
+@props:onclick: any;
 -->

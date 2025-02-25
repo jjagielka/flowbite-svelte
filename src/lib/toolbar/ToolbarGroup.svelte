@@ -1,20 +1,27 @@
 <script lang="ts">
-  import { twMerge } from 'tailwind-merge';
-  import type { Writable } from 'svelte/store';
-  import { getContext } from 'svelte';
-  export let divClass: string = 'flex items-center space-x-1 rtl:space-x-reverse sm:pe-4 sm:ps-4 sm:first:ps-0 sm:last:pe-0';
+  import type { Writable } from "svelte/store";
+  import { getContext } from "svelte";
+  import { type ToolbarGroupProps as Props, toolbarGroup } from "./";
 
-  const options: Writable<boolean> = getContext('toolbar');
+  let { children, spacing = "default", padding = "default", position = "middle", class: className, ...restProps }: Props = $props();
+
+  const groupClass = $derived(toolbarGroup({ spacing, padding, position, class: className }));
+
+  const options: Writable<boolean> = getContext("toolbar");
   if (options) $options = true;
 </script>
 
-<div class={twMerge(divClass, $$props.class)}>
-  <slot />
+<div {...restProps} class={groupClass}>
+  {@render children()}
 </div>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let divClass: string = 'flex items-center space-x-1 rtl:space-x-reverse sm:pe-4 sm:ps-4 sm:first:ps-0 sm:last:pe-0';
+@props: children: any;
+@props:spacing: any = "default";
+@props:padding: any = "default";
+@props:position: any = "middle";
+@props:class: string;
 -->

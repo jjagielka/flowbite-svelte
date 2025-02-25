@@ -1,60 +1,77 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
-  import { twMerge } from 'tailwind-merge';
+  import { getContext } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { tv } from "tailwind-variants";
+  import { type ListgroupItemProps as Props, listGroupItem } from ".";
 
-  export let active: boolean = getContext('active');
-  export let current: boolean = false;
-  export let disabled: boolean = false;
-  export let href: string = '';
-  export let currentClass: string = 'text-white bg-primary-700 dark:text-white dark:bg-gray-800';
-  export let normalClass: string = '';
-  export let disabledClass: string = 'text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-gray-400';
-  export let focusClass: string = 'focus:z-40 focus:outline-hidden focus:ring-2 focus:ring-primary-700 focus:text-primary-700 dark:focus:ring-gray-500 dark:focus:text-white';
-  export let hoverClass: string = 'hover:bg-gray-100 hover:text-primary-700 dark:hover:bg-gray-600 dark:hover:text-white';
-  export let itemDefaultClass: string = 'py-2 px-4 w-full text-sm font-medium list-none first:rounded-t-lg last:rounded-b-lg';
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  export let attrs: any = undefined;
+  let { children, onclick, active, current, disabled, name, Icon, href, currentClass = "text-white bg-primary-700 dark:text-white dark:bg-gray-800", normalClass, disabledClass = "text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-gray-400", liClass = "py-2 px-4 w-full text-sm font-medium list-none first:rounded-t-lg last:rounded-b-lg", class: className, aClasss, btnClass, iconClass = "me-2.5 h-5 w-5", ...restProps }: Props = $props();
 
-  const states = {
-    current: currentClass,
-    normal: normalClass,
-    disabled: disabledClass
-  };
+  active = getContext("active");
 
-  let state: 'disabled' | 'current' | 'normal';
-  $: state = disabled ? 'disabled' : current ? 'current' : 'normal';
+  const itemClass = listGroupItem({
+    state: disabled ? "disabled" : current ? "current" : "normal",
+    active,
+    class: twMerge(liClass, disabled ? disabledClass : current ? currentClass : normalClass, className)
+  });
 
-  let itemClass: string;
-  $: itemClass = twMerge(itemDefaultClass, states[state], active && state === 'disabled' && 'cursor-not-allowed', active && state === 'normal' && hoverClass, active && state === 'normal' && focusClass, $$props.class);
+  const buttonClass = tv({
+    base: "flex items-center text-left",
+    extend: listGroupItem
+  })({
+    state: disabled ? "disabled" : current ? "current" : "normal",
+    active,
+    class: twMerge(itemClass, btnClass)
+  });
+
+  const linkClass = tv({
+    base: "block",
+    extend: listGroupItem
+  })({
+    state: disabled ? "disabled" : current ? "current" : "normal",
+    active,
+    class: twMerge(itemClass, aClasss)
+  });
 </script>
 
-{#if !active}
+{#if !active && children}
   <li class={itemClass}>
-    <slot item={$$props} />
+    {@render children()}
   </li>
 {:else if href}
-  <a {...attrs} {href} class="block {itemClass}" aria-current={current} on:blur on:change on:click on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover>
-    <slot item={$$props} />
+  <a {...restProps} {onclick} {href} class={linkClass} aria-current={current}>
+    {name}
   </a>
 {:else}
-  <button type="button" {...attrs} class="flex items-center text-left {itemClass}" {disabled} aria-current={current} on:blur on:change on:click on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover>
-    <slot item={$$props} />
+  <button type="button" {onclick} class={buttonClass} {disabled} aria-current={current}>
+    {#if Icon}
+      <Icon class={iconClass} />
+    {/if}
+    {#if name}
+      {name}
+    {:else}
+      {@render children()}
+    {/if}
   </button>
 {/if}
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let active: boolean = getContext('active');
-@prop export let current: boolean = false;
-@prop export let disabled: boolean = false;
-@prop export let href: string = '';
-@prop export let currentClass: string = 'text-white bg-primary-700 dark:text-white dark:bg-gray-800';
-@prop export let normalClass: string = '';
-@prop export let disabledClass: string = 'text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-gray-400';
-@prop export let focusClass: string = 'focus:z-40 focus:outline-hidden focus:ring-2 focus:ring-primary-700 focus:text-primary-700 dark:focus:ring-gray-500 dark:focus:text-white';
-@prop export let hoverClass: string = 'hover:bg-gray-100 hover:text-primary-700 dark:hover:bg-gray-600 dark:hover:text-white';
-@prop export let itemDefaultClass: string = 'py-2 px-4 w-full text-sm font-medium list-none first:rounded-t-lg last:rounded-b-lg';
-@prop export let attrs: any = undefined;
+@props: children: any;
+@props:onclick: any;
+@props:active: any;
+@props:current: any;
+@props:disabled: any;
+@props:name: any;
+@props:Icon: any;
+@props:href: any;
+@props:currentClass: any = "text-white bg-primary-700 dark:text-white dark:bg-gray-800";
+@props:normalClass: any;
+@props:disabledClass: any = "text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-gray-400";
+@props:liClass: any = "py-2 px-4 w-full text-sm font-medium list-none first:rounded-t-lg last:rounded-b-lg";
+@props:class: string;
+@props:aClasss: any;
+@props:btnClass: any;
+@props:iconClass: any = "me-2.5 h-5 w-5";
 -->

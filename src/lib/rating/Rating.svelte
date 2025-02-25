@@ -1,74 +1,51 @@
 <script lang="ts">
-  import Star from './Star.svelte';
-  import { twMerge } from 'tailwind-merge';
-  import generateId from '../utils/generateId.js';
-  import type { ComponentType } from 'svelte';
-  import type { HTMLAttributes } from 'svelte/elements';
+  import Star from "./Star.svelte";
+  import { type RatingProps as Props, rating as ratingVariants } from ".";
 
-  interface $$Props extends HTMLAttributes<HTMLDivElement> {
-    divClass?: string;
-    size?: number;
-    total?: number;
-    rating: number;
-    partialId?: string;
-    icon?: ComponentType;
-    count?: boolean;
-    iconFillColor?: string | undefined;
-    iconStrokeColor?: string | undefined;
-  }
+  let { children, text, divClass, size = 24, total = 5, rating = 4, Icon = Star, count = false, pClass }: Props = $props();
 
-  export let divClass: $$Props['divClass'] = 'flex items-center';
-  export let size: $$Props['size'] = 24;
-  export let total: NonNullable<$$Props['total']> = 5;
-  export let rating: $$Props['rating'] = 4;
-  export let partialId: $$Props['partialId'] = 'partialStar' + generateId();
-  export let icon: $$Props['icon'] = Star;
-  export let count: $$Props['count'] = false;
-  export let iconFillColor: $$Props['iconFillColor'] = '#F5CA14';
-  export let iconStrokeColor: $$Props['iconStrokeColor'] = '#F5CA14';
-
-  // generate unique id for full star and gray star
-  const fullStarId: string = generateId();
-  const grayStarId: string = generateId();
-  $: fullStars = Math.floor(rating);
-  $: rateDiffence = rating - fullStars;
-  $: percentRating = Math.round(rateDiffence * 100);
-  $: grayStars = total - (fullStars + Math.ceil(rateDiffence));
-  // console.log(fullStars, grayStars, rateDiffence, percentRating)
+  const { base, p } = $derived(ratingVariants());
+  const ratingGroupId = crypto.randomUUID();
+  let fullStars: number = Math.floor(rating);
+  let rateDiffence = rating - fullStars;
+  let percentRating = Math.round(rateDiffence * 100);
+  let grayStars: number = total - (fullStars + Math.ceil(rateDiffence));
 </script>
 
-<div class={twMerge(divClass, $$props.class)}>
-  {#if count}
-    <svelte:component this={icon} fillColor={iconFillColor} strokeColor={iconStrokeColor} fillPercent={100} {size} />
-    <p class="ms-2 text-sm font-bold text-gray-900 dark:text-white">{rating}</p>
-    <slot />
+<div class={base({ class: divClass })}>
+  {#if count && children}
+    <Icon fillPercent={100} {size} iconIndex={0} groupId={ratingGroupId} />
+    <p class={p({ class: pClass })}>{rating}</p>
+    {@render children()}
   {:else}
-    {#each Array(fullStars) as star}
-      <svelte:component this={icon} fillColor={iconFillColor} strokeColor={iconStrokeColor} {size} fillPercent={100} id={fullStarId} />
+    <!-- eslint-disable @typescript-eslint/no-unused-vars-->
+    {#each Array(fullStars) as _, index}
+      <Icon {size} fillPercent={100} iconIndex={index} groupId={`rating-${ratingGroupId}-full`} />
     {/each}
     {#if percentRating}
-      <svelte:component this={icon} fillColor={iconFillColor} strokeColor={iconStrokeColor} {size} fillPercent={percentRating} id={partialId} />
+      <Icon {size} fillPercent={percentRating} iconIndex={fullStars} groupId={`rating-${ratingGroupId}-partial`} />
     {/if}
-    {#each Array(grayStars) as star}
-      <svelte:component this={icon} fillColor={iconFillColor} strokeColor={iconStrokeColor} {size} fillPercent={0} id={grayStarId} />
+    <!-- eslint-disable @typescript-eslint/no-unused-vars-->
+    {#each Array(grayStars) as _, index}
+      <Icon {size} fillPercent={0} iconIndex={index} groupId={`rating-${ratingGroupId}-empty`} />
     {/each}
-    {#if $$slots.text}
-      <slot name="text" />
+    {#if text}
+      {@render text()}
     {/if}
   {/if}
 </div>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let divClass: $$Props['divClass'] = 'flex items-center';
-@prop export let size: $$Props['size'] = 24;
-@prop export let total: NonNullable<$$Props['total']> = 5;
-@prop export let rating: $$Props['rating'] = 4;
-@prop export let partialId: $$Props['partialId'] = 'partialStar' + generateId();
-@prop export let icon: $$Props['icon'] = Star;
-@prop export let count: $$Props['count'] = false;
-@prop export let iconFillColor: $$Props['iconFillColor'] = '#F5CA14';
-@prop export let iconStrokeColor: $$Props['iconStrokeColor'] = '#F5CA14';
+@props: children: any;
+@props:text: any;
+@props:divClass: any;
+@props:size: any = 24;
+@props:total: any = 5;
+@props:rating: any = 4;
+@props:Icon: any = Star;
+@props:count: any = false;
+@props:pClass: any;
 -->

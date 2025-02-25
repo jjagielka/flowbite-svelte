@@ -1,61 +1,55 @@
 <script lang="ts">
-  import type { HTMLAnchorAttributes } from 'svelte/elements';
-  import type { Action } from 'svelte/action';
-  import { getContext } from 'svelte';
-  import { twMerge } from 'tailwind-merge';
-  import type { SidebarType } from './Sidebar.svelte';
+  import { getContext } from "svelte";
+  import { twMerge } from "tailwind-merge";
+  import { type SidebarCtxType, type SidebarItemProps as Props } from "./";
 
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  interface $$Props extends HTMLAnchorAttributes {
-    action?: Action<HTMLElement, any>;
-    params?: any;
-    href?: string;
-    label?: string;
-    spanClass?: string;
-    activeClass?: string;
-    nonActiveClass?: string;
-  }
+  let { iconSlot, subtext, href, label, spanClass = "ms-3", activeClass, nonActiveClass, aClass, active, class: className, ...restProps }: Props = $props();
 
-  export let action: NonNullable<$$Props['action']> = () => {};
-  export let params: $$Props['params'] = {};
-  export let href: $$Props['href'] = '';
-  export let label: $$Props['label'] = '';
-  export let spanClass: $$Props['spanClass'] = 'ms-3';
-  export let activeClass: $$Props['activeClass'] = undefined;
-  export let nonActiveClass: $$Props['nonActiveClass'] = undefined;
+  const context = getContext<SidebarCtxType>("sidebarContext") ?? {};
+  const activeUrlStore = getContext("activeUrl") as { subscribe: (callback: (value: string) => void) => void };
 
-  const context = getContext<SidebarType>('sidebarContext') ?? {};
-  const activeUrlStore = getContext('activeUrl') as { subscribe: (callback: (value: string) => void) => void };
-
-  let sidebarUrl = '';
+  let sidebarUrl = $state("");
   activeUrlStore.subscribe((value) => {
     sidebarUrl = value;
   });
+  let activeItem = $state();
 
-  $: active = sidebarUrl ? href === sidebarUrl : false;
+  // $effect(() => {
+  //   activeItem = sidebarUrl ? href === sidebarUrl : false;
+  // });
+  $effect(() => {
+    // Prioritize the explicit 'active' prop if provided
+    activeItem = active !== undefined ? active : sidebarUrl ? href === sidebarUrl : false;
+  });
 
-  $: aClass = twMerge(active ? activeClass ?? context.activeClass : nonActiveClass ?? context.nonActiveClass, $$props.class);
+  // let aCls = $derived((activeItem ?? sidebarUrl === href) ? (activeClass ?? context.activeClass) : (nonActiveClass ?? context.nonActiveClass));
+  let aCls = $derived((activeItem ?? sidebarUrl === href) ? (activeClass ?? context.activeClass) : (nonActiveClass ?? context.nonActiveClass));
 </script>
 
-<li>
-  <a {...$$restProps} {href} use:action={params} on:blur on:click on:focus on:keydown on:keypress on:keyup on:mouseenter on:mouseleave on:mouseover class={aClass}>
-    <slot name="icon" />
+<li class={className}>
+  <a onclick={context.closeSidebar} {...restProps} {href} aria-current={(activeItem ?? sidebarUrl === href) ? "page" : undefined} class={twMerge(aCls, aClass)}>
+    {#if iconSlot}
+      {@render iconSlot()}
+    {/if}
     <span class={spanClass}>{label}</span>
-    {#if $$slots.subtext}
-      <slot name="subtext" />
+    {#if subtext}
+      {@render subtext()}
     {/if}
   </a>
 </li>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let action: NonNullable<$$Props['action']> = () => {};
-@prop export let params: $$Props['params'] = {};
-@prop export let href: $$Props['href'] = '';
-@prop export let label: $$Props['label'] = '';
-@prop export let spanClass: $$Props['spanClass'] = 'ms-3';
-@prop export let activeClass: $$Props['activeClass'] = undefined;
-@prop export let nonActiveClass: $$Props['nonActiveClass'] = undefined;
+@props: iconSlot: any;
+@props:subtext: any;
+@props:href: any;
+@props:label: any;
+@props:spanClass: any = "ms-3";
+@props:activeClass: any;
+@props:nonActiveClass: any;
+@props:aClass: any;
+@props:active: any;
+@props:class: string;
 -->

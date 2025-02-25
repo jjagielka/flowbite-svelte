@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Input from '$lib/forms/Input.svelte';
+  import Input from '$lib/forms/input/Input.svelte';
   import Tooltip from '$lib/tooltip/Tooltip.svelte';
   import Check from './icons/Check.svelte';
   import Clipboard from './icons/Clipboard.svelte';

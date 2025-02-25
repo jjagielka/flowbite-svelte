@@ -1,38 +1,31 @@
 <script lang="ts">
-  import type { ComponentProps } from 'svelte';
   import { getContext } from 'svelte';
-  import { writable, type Writable } from 'svelte/store';
-  import { twMerge } from 'tailwind-merge';
-  import ToolbarButton from '../toolbar/ToolbarButton.svelte';
-  import Menu from './Menu.svelte';
+  import type { NavbarType } from '$lib/types';
+  import { navhamburger, type NavHamburgerProps as Props } from '.';
 
-  type $$Props = ComponentProps<ToolbarButton> & {
-    menuClass?: string;
-    onClick?: (() => void) | undefined;
-    classMenu?: string;
-    title?: string;
-  };
+  let { toggleNav, class: className, ...restProps }: Props = $props();
 
-  export let menuClass: $$Props['menuClass'] = 'h-6 w-6 shrink-0';
-  export let onClick: $$Props['onClick'] = undefined;
-  export let classMenu: $$Props['classMenu'] = '';
-  export let title: $$Props['title'] = 'Open main menu';
-
-  let btnClass: string = 'ms-3 md:hidden';
-
-  let hiddenStore = getContext<Writable<boolean>>('navHidden') ?? writable(true);
-  const toggle = (ev: MouseEvent) => hiddenStore.update((h) => !h);
+  let breakPoint;
+  const context = getContext<NavbarType>('navbarContext');
+  breakPoint = context.breakPoint ?? 'md';
+  const toggleButton = $derived(navhamburger({ breakPoint, className }));
+  // const handletoggleNav = () => {
+  //   toggleNav();
+  //   console.log('toggleNav clicked')
+  // }
 </script>
 
-<ToolbarButton name={title} on:click={onClick || toggle} {...$$restProps} class={twMerge(btnClass, $$props.class)}>
-  <Menu class={twMerge(menuClass, classMenu)} />
-</ToolbarButton>
+<button onclick={toggleNav} type="button" {...restProps} class={toggleButton}>
+  <span class="sr-only">Open main menu</span>
+  <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+  </svg>
+</button>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let menuClass: $$Props['menuClass'] = 'h-6 w-6 shrink-0';
-@prop export let onClick: $$Props['onClick'] = undefined;
-@prop export let classMenu: $$Props['classMenu'] = '';
+@props: toggleNav: any;
+@props:class: string;
 -->

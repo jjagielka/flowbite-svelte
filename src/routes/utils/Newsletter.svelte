@@ -1,8 +1,6 @@
 <script>
   import { browser } from '$app/environment';
-  import ButtonGroup from '$lib/button-group/ButtonGroup.svelte';
-  import Button from '$lib/buttons/Button.svelte';
-  import Input from '$lib/forms/Input.svelte';
+  import { ButtonGroup, Button, Input } from '$lib';
   import Mail from '../utils/icons/Mail.svelte';
   import data from './data.json';
 </script>

@@ -1,34 +1,25 @@
 <script lang="ts">
-  import type { HTMLAnchorAttributes } from 'svelte/elements';
-  import { twMerge } from 'tailwind-merge';
+  import { type FooterIconProps as Props, footerIcon } from ".";
 
-  interface $$Props extends HTMLAnchorAttributes {
-    href?: string;
-    ariaLabel?: string;
-    aClass?: string;
-    target?: string;
-  }
+  let { children, href, ariaLabel, class: aClass, ...restProps }: Props = $props();
 
-  export let href: $$Props['href'] = '';
-  export let ariaLabel: $$Props['ariaLabel'] = '';
-  export let aClass: $$Props['aClass'] = 'text-gray-500 hover:text-gray-900 dark:hover:text-white';
-  export let target: $$Props['target'] = undefined;
+  const aCls = $derived(footerIcon({ class: aClass }));
 </script>
 
 {#if href}
-  <a {...$$restProps} {href} {target} aria-label={ariaLabel} class={twMerge(aClass, $$props.class)}>
-    <slot />
+  <a {...restProps} {href} aria-label={ariaLabel} class={aCls}>
+    {@render children()}
   </a>
 {:else}
-  <slot />
+  {@render children()}
 {/if}
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let href: $$Props['href'] = '';
-@prop export let ariaLabel: $$Props['ariaLabel'] = '';
-@prop export let aClass: $$Props['aClass'] = 'text-gray-500 hover:text-gray-900 dark:hover:text-white';
-@prop export let target: $$Props['target'] = undefined;
+@props: children: any;
+@props:href: any;
+@props:ariaLabel: any;
+@props:class: string;
 -->

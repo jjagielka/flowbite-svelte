@@ -4,8 +4,7 @@
   import FooterBrand from '$lib/footer/FooterBrand.svelte';
   import FooterCopyright from '$lib/footer/FooterCopyright.svelte';
   import FooterIcon from '$lib/footer/FooterIcon.svelte';
-  import FooterLink from '$lib/footer/FooterLink.svelte';
-  import FooterLinkGroup from '$lib/footer/FooterLinkGroup.svelte';
+  import { FooterLi, FooterUl } from '$lib';
   let logo = '/images/flowbite-svelte-icon-logo.svg';
 
   let isHomePage: boolean;
@@ -47,11 +46,11 @@
         {#each Object.entries(footer_links) as [column, links]}
           <div>
             <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">{column}</h2>
-            <FooterLinkGroup>
+            <FooterUl>
               {#each Object.entries(links) as [name, href]}
-                <FooterLink liClass="mb-4" {href}>{name}</FooterLink>
+                <FooterLi liClass="mb-4" {href}>{name}</FooterLi>
               {/each}
-            </FooterLinkGroup>
+            </FooterUl>
           </div>
         {/each}
       </div>

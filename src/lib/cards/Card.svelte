@@ -1,85 +1,74 @@
 <script lang="ts">
-  import type { SizeType } from '$lib/types';
-  import { twMerge } from 'tailwind-merge';
-  import type { ComponentProps } from 'svelte';
-  import Frame from '../utils/Frame.svelte';
+  import { card, type CardProps as Props } from ".";
+  import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
 
-  interface $$Props extends ComponentProps<Frame> {
-    href?: string;
-    horizontal?: boolean;
-    reverse?: boolean;
-    img?: string;
-    padding?: SizeType | 'none';
-    size?: SizeType | 'none';
-    imgClass?: string;
-  }
+  let { children, href, color = "gray", horizontal = false, shadow = "md", reverse = false, img, padding = "lg", size = "sm", class: className, imgClass, contentClass, ...restProps }: Props = $props();
 
-  export let href: $$Props['href'] = undefined;
-  export let horizontal: $$Props['horizontal'] = false;
-  export let reverse: $$Props['reverse'] = false;
-  export let img: $$Props['img'] = undefined;
-  export let padding: NonNullable<$$Props['padding']> = 'lg';
-  export let size: NonNullable<$$Props['size']> = 'sm';
-  export let imgClass: $$Props['imgClass'] = '';
+  const { base, image, content } = $derived(
+    card({
+      size,
+      color,
+      shadow,
+      padding,
+      horizontal,
+      reverse,
+      href: !!href
+    })
+  );
 
-  // propagate props type from underlying Frame
-  interface $$Props extends ComponentProps<Frame> {
-    horizontal?: boolean;
-    reverse?: boolean;
-    img?: string;
-    padding?: SizeType | 'none';
-    size?: SizeType | 'none';
-    imgClass?: string;
-  }
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  const commonProps: Record<string, any> = $derived({
+    class: base({ class: className }),
+    ...restProps
+  });
 
-  const paddings: Record<SizeType | 'none', string> = {
-    none: '',
-    xs: 'p-2',
-    sm: 'p-4',
-    md: 'p-4 sm:p-5',
-    lg: 'p-4 sm:p-6',
-    xl: 'p-4 sm:p-8'
-  };
+  const anchorProps: HTMLAnchorAttributes = $derived({
+    ...commonProps,
+    href
+  });
 
-  const sizes: Record<SizeType | 'none', string> = {
-    none: '',
-    xs: 'max-w-xs',
-    sm: 'max-w-sm',
-    md: 'max-w-xl',
-    lg: 'max-w-2xl',
-    xl: 'max-w-(--breakpoint-xl)'
-  };
-
-  let innerPadding: string;
-  $: innerPadding = paddings[padding];
-
-  let cardClass: string;
-  $: cardClass = twMerge('flex w-full', sizes[size], reverse ? 'flex-col-reverse' : 'flex-col', horizontal && (reverse ? 'md:flex-row-reverse' : 'md:flex-row'), href && 'hover:bg-gray-100 dark:hover:bg-gray-700', !img && innerPadding, $$props.class);
-
-  let imgCls: string;
-  $: imgCls = twMerge(reverse ? 'rounded-b-lg' : 'rounded-t-lg', horizontal && 'object-cover w-full h-96 md:h-auto md:w-48 md:rounded-none', horizontal && (reverse ? 'md:rounded-e-lg' : 'md:rounded-s-lg'), imgClass);
+  const divProps: HTMLAttributes<HTMLDivElement> = $derived({
+    ...commonProps
+  });
 </script>
 
-<Frame tag={href ? 'a' : 'div'} rounded shadow border on:click on:focusin on:focusout on:mouseenter on:mouseleave {href} {...$$restProps} class={cardClass}>
+{#snippet childSlot()}
   {#if img}
-    <img class={imgCls} src={img} alt="" />
-    <div class={innerPadding}>
-      <slot />
+    <img class={image({ class: imgClass })} src={img.src} alt={img.alt} />
+    <div class={content({ class: contentClass })}>
+      {@render children()}
     </div>
   {:else}
-    <slot />
+    <div class={content({ class: contentClass })}>
+      {@render children()}
+    </div>
   {/if}
-</Frame>
+{/snippet}
+
+{#if href}
+  <a {...anchorProps}>
+    {@render childSlot()}
+  </a>
+{:else}
+  <div {...divProps}>
+    {@render childSlot()}
+  </div>
+{/if}
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let href: $$Props['href'] = undefined;
-@prop export let horizontal: $$Props['horizontal'] = false;
-@prop export let reverse: $$Props['reverse'] = false;
-@prop export let img: $$Props['img'] = undefined;
-@prop export let padding: NonNullable<$$Props['padding']> = 'lg';
-@prop export let size: NonNullable<$$Props['size']> = 'sm';
-@prop export let imgClass: $$Props['imgClass'] = '';
+@props: children: any;
+@props:href: any;
+@props:color: any = "gray";
+@props:horizontal: any = false;
+@props:shadow: any = "md";
+@props:reverse: any = false;
+@props:img: any;
+@props:padding: any = "lg";
+@props:size: any = "sm";
+@props:class: string;
+@props:imgClass: any;
+@props:contentClass: any;
 -->

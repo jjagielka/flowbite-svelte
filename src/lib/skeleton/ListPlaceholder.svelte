@@ -1,56 +1,33 @@
 <script lang="ts">
-  import { twMerge } from 'tailwind-merge';
+  import { listPlaceholder, type ListPlaceholderProps as Props } from "./index";
 
-  interface $$Props {
-    divClass?: string;
-    class?: string;
-  }
+  let { itemNumber = 5, size = "md", rounded, class: className, ...restProps }: Props = $props();
 
-  export let divClass: $$Props['divClass'] = 'p-4 space-y-4 max-w-md rounded-sm border border-gray-200 divide-y divide-gray-200 shadow-sm animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700';
+  const { base, item, itemContent, itemTitle, itemSubtitle, itemExtra } = $derived(listPlaceholder({ size, rounded }));
+
+  let items = $derived([...Array(itemNumber).keys()]);
 </script>
 
-<div role="status" class={twMerge(divClass, $$props.class)}>
-  <div class="flex justify-between items-center">
-    <div>
-      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+<div role="status" {...restProps} class={base({ className })}>
+  <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+  {#each items as _, i}
+    <div class={item({ class: i > 0 ? "pt-4" : "" })}>
+      <div class={itemContent()}>
+        <div class={itemTitle()}></div>
+        <div class={itemSubtitle()}></div>
+      </div>
+      <div class={itemExtra()}></div>
     </div>
-    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-  </div>
-  <div class="flex justify-between items-center pt-4">
-    <div>
-      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-    </div>
-    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-  </div>
-  <div class="flex justify-between items-center pt-4">
-    <div>
-      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-    </div>
-    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-  </div>
-  <div class="flex justify-between items-center pt-4">
-    <div>
-      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-    </div>
-    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-  </div>
-  <div class="flex justify-between items-center pt-4">
-    <div>
-      <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-      <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-    </div>
-    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-  </div>
+  {/each}
   <span class="sr-only">Loading...</span>
 </div>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let divClass: $$Props['divClass'] = 'p-4 space-y-4 max-w-md rounded-sm border border-gray-200 divide-y divide-gray-200 shadow-sm animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700';
+@props: itemNumber: any = 5;
+@props:size: any = "md";
+@props:rounded: any;
+@props:class: string;
 -->

@@ -1,14 +1,17 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import path from 'path';
 import examples from 'mdsvexamples/vite';
+import path from 'path';
 import pkg from './package.json' with { type: 'json' };
 
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+
 /** @type {import('vite').UserConfig} */
-const config = {
-  plugins: [sveltekit(), examples],
-  test: {
-    include: ['src/**/*.{test,spec}.{js,ts}']
-  },
+export default defineConfig({
+  plugins: [sveltekit(), tailwindcss(), examples],
+  // test: {
+  //   include: ['src/**/*.{test,spec}.{js,ts}']
+  // },
   build: {
     chunkSizeWarningLimit: 1600
   },
@@ -25,6 +28,6 @@ const config = {
   define: {
     __VERSION__: JSON.stringify(pkg.version)
   }
-};
+});
 
-export default config;
+

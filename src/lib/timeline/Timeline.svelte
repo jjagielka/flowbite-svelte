@@ -1,31 +1,22 @@
 <script lang="ts">
-  import type { HTMLOlAttributes } from 'svelte/elements';
-  import { twMerge } from 'tailwind-merge';
-  import { setContext } from 'svelte';
+  import { setContext } from "svelte";
+  import { type TimelineProps as Props, timeline } from ".";
 
-  interface $$Props extends HTMLOlAttributes {
-    order?: 'default' | 'vertical' | 'horizontal' | 'activity' | 'group';
-  }
+  let { children, order = "default", class: className, ...restProps }: Props = $props();
 
-  export let order: NonNullable<$$Props['order']> = 'default';
-
-  setContext('order', order);
-  let olClasses = {
-    group: 'p-5 mb-4 bg-gray-50 rounded-lg border border-gray-100 dark:bg-gray-800 dark:border-gray-700',
-    horizontal: 'sm:flex',
-    activity: 'relative border-s border-gray-200 dark:border-gray-700',
-    vertical: 'relative border-s border-gray-200 dark:border-gray-700',
-    default: 'relative border-s border-gray-200 dark:border-gray-700'
-  };
+  setContext("order", order);
+  const olCls = $derived(timeline({ order, className }));
 </script>
 
-<ol {...$$restProps} class={twMerge(olClasses[order], $$props.class)} >
-  <slot />
+<ol {...restProps} class={olCls}>
+  {@render children()}
 </ol>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let order: NonNullable<$$Props['order']> = 'default';
+@props: children: any;
+@props:order: any = "default";
+@props:class: string;
 -->

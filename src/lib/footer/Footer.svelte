@@ -1,23 +1,20 @@
 <script lang="ts">
-  import type { HTMLAttributes } from 'svelte/elements';
-  import { twMerge } from 'tailwind-merge';
+  import { type FooterProps as Props, footer } from ".";
 
-  interface $$Props extends HTMLAttributes<HTMLElement> {
-    footerType?: 'sitemap' | 'default' | 'logo' | 'socialmedia';
-  }
+  let { children, footerType = "default", class: className, ...restProps }: Props = $props();
 
-  export let footerType: $$Props['footerType'] = undefined;
-
-  let footerClass = twMerge(footerType === 'sitemap' && 'bg-gray-800', footerType === 'socialmedia' && 'p-4 bg-white sm:p-6 dark:bg-gray-800', footerType === 'logo' && 'p-4 bg-white rounded-lg shadow-sm md:px-6 md:py-8 dark:bg-gray-800', footerType === 'default' && 'p-4 bg-white rounded-lg shadow-sm md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800', $$props.class);
+  const footerCls = $derived(footer({ footerType, className }));
 </script>
 
-<footer {...$$restProps} class={footerClass}>
-  <slot />
+<footer {...restProps} class={footerCls}>
+  {@render children()}
 </footer>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let footerType: $$Props['footerType'] = undefined;
+@props: children: any;
+@props:footerType: any = "default";
+@props:class: string;
 -->

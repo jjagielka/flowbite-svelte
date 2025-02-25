@@ -1,8 +1,8 @@
 <script>
   import Button from '$lib/buttons/Button.svelte';
-  import DarkMode from '$lib/darkmode/DarkMode.svelte';
-  import Li from '$lib/typography/Li.svelte';
-  import List from '$lib/typography/List.svelte';
+  import { DarkMode } from '$lib';
+  import Li from '$lib/typography/list/Li.svelte';
+  import List from '$lib/typography/list/List.svelte';
   import ArrowRight from '../utils/icons/ArrowRight.svelte';
   import Check from '../utils/icons/Check.svelte';
   import Moon from '../utils/icons/Moon.svelte';

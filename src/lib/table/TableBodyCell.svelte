@@ -1,33 +1,29 @@
 <script lang="ts">
-  import type { HTMLTdAttributes } from 'svelte/elements';
-  import { twMerge } from 'tailwind-merge';
-  import { getContext } from 'svelte';
+  import { type TableBodyCellProps as Props, tablebodycell } from "./";
 
-  interface $$Props extends HTMLTdAttributes {
-    tdClass?: string;
-  }
+  let { children, class: className, colspan, onclick, ...restProps }: Props = $props();
 
-  export let tdClass: $$Props['tdClass'] = 'px-6 py-4 whitespace-nowrap font-medium ';
-
-  let color = 'default';
-  color = getContext('color');
-  let tdClassfinal: string;
-  $: tdClassfinal = twMerge(tdClass, color === 'default' ? 'text-gray-900 dark:text-white' : 'text-blue-50 whitespace-nowrap dark:text-blue-100', $$props.class);
+  const base = $derived(tablebodycell({ className }));
 </script>
 
-<td {...$$restProps} class={tdClassfinal}>
-  {#if $$props.onclick}
-  <button on:click={$$props.onclick}>
-    <slot />
-  </button>
-  {:else}
-    <slot />
+<td {...restProps} class={base} colspan={colspan ?? 1}>
+  {#if onclick}
+    <button {onclick}>
+      {#if children}
+        {@render children()}
+      {/if}
+    </button>
+  {:else if children}
+    {@render children()}
   {/if}
 </td>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let tdClass: $$Props['tdClass'] = 'px-6 py-4 whitespace-nowrap font-medium ';
+@props: children: any;
+@props:class: string;
+@props:colspan: any;
+@props:onclick: any;
 -->

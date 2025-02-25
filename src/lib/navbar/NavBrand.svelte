@@ -1,21 +1,32 @@
 <script lang="ts">
-  import type { HTMLAreaAttributes } from 'svelte/elements';
-  import { twMerge } from 'tailwind-merge';
-  
-  interface $$Props extends HTMLAreaAttributes{
-    href?: string;
-  }
+  import { type NavBrandProps as Props, navbrand } from ".";
+  import { getContext } from "svelte";
+  import type { navbarType } from "$lib/types";
 
-  export let href: $$Props['href'] = '';
+  let { children, siteName, closeNav, aClass, spanClass, ...restProps }: Props = $props();
+
+  const context = getContext<navbarType>("navbarContext");
+  closeNav = context.closeNav ?? closeNav;
+
+  const { base, span } = $derived(navbrand());
 </script>
 
-<a {href} {...$$restProps} class={twMerge('flex items-center', $$props.class)}>
-  <slot />
+<a href="/" onclick={closeNav} {...restProps} class={base({ class: aClass })}>
+  {#if children}
+    {@render children()}
+  {/if}
+  {#if siteName}
+    <span class={span({ class: spanClass })}>{siteName}</span>
+  {/if}
 </a>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let href: $$Props['href'] = '';
+@props: children: any;
+@props:siteName: any;
+@props:closeNav: any;
+@props:aClass: any;
+@props:spanClass: any;
 -->

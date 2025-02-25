@@ -1,34 +1,33 @@
 <script lang="ts">
-  import type { ComponentProps } from 'svelte';
-  import Popper from '../utils/Popper.svelte';
+  import Popper from "../utils/Popper.svelte";
+  import { popover } from "./theme";
+  import type { PopoverProps } from "./type";
 
-  // propagate props type from underlying Frame
-  interface $$Props extends ComponentProps<Popper> {
-    title?: string;
-    defaultClass?: string;
-  }
+  let { titleSlot, color = "default", trigger = "click", arrow = true, children, placement = "top", class: className, ...restProps }: PopoverProps = $props();
 
-  export let title: string = '';
-  export let defaultClass: string = 'py-2 px-3';
+  let { base, title, h3, arrowBase } = $derived(popover({ color, arrow, placement }));
 </script>
 
-<Popper activeContent border shadow rounded {...$$restProps} class="dark:border-gray-600! {$$props.class}" on:show>
-  {#if $$slots.title || title}
-    <div class="py-2 px-3 bg-gray-100 rounded-t-md border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
-      <slot name="title">
-        <h3 class="font-semibold text-gray-900 dark:text-white">{title}</h3>
-      </slot>
+<Popper {...restProps} {placement} border {trigger} {arrow} class={base({ className })}>
+  {#if typeof titleSlot === "string"}
+    <div class={title()}>
+      <h3 class={h3()}>{titleSlot}</h3>
     </div>
+  {:else if titleSlot}
+    {@render titleSlot()}
   {/if}
-  <div class={defaultClass}>
-    <slot />
-  </div>
+  {@render children()}
 </Popper>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let title: string = '';
-@prop export let defaultClass: string = 'py-2 px-3';
+@props: titleSlot: any;
+@props:color: any = "default";
+@props:trigger: any = "click";
+@props:arrow: any = true;
+@props:children: any;
+@props:placement: any = "top";
+@props:class: string;
 -->

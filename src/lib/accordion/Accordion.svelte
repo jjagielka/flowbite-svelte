@@ -1,65 +1,38 @@
-<script context="module" lang="ts">
-  import { writable, type Writable } from 'svelte/store';
-
-  export interface AccordionCtxType {
-    flush: boolean | undefined;
-    activeClass: string;
-    inactiveClass: string;
-    selected?: Writable<object>;
-    classActive?: string;
-    classInactive?: string;
-  }
-</script>
-
 <script lang="ts">
-  import Frame from '$lib/utils/Frame.svelte';
-  import { twMerge } from 'tailwind-merge';
-  import { setContext, type ComponentProps } from 'svelte';
+  import { setContext, getContext } from "svelte";
+  import { type AccordionProps as Props, accordion } from "./";
 
-  interface $$Props extends ComponentProps<Frame> {
-    multiple?: boolean;
-    flush?: boolean;
-    activeClass?: string;
-    inactiveClass?: string;
-    defaultClass?: string;
-    classActive?: string;
-    classInactive?: string;
-  }
+  let { children, flush, activeClass, inactiveClass, isSingle = true, class: className, ...restProps }: Props = $props();
 
-  export let multiple: $$Props['multiple'] = false;
-  export let flush: $$Props['flush'] = false;
-  export let activeClass: $$Props['activeClass'] = 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800';
-  export let inactiveClass: $$Props['inactiveClass'] = 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800';
-  export let defaultClass: $$Props['defaultClass'] = 'text-gray-500 dark:text-gray-400';
-  export let classActive: $$Props['classActive'] = '';
-  export let classInactive: $$Props['classInactive'] = '';
+  // Get merged theme from context
+  const context = getContext<Record<string, object>>("themeConfig");
+  // Use context theme if available, otherwise fallback to default
+  const accordionTheme = context?.accordion || accordion;
 
-  const ctx: AccordionCtxType = {
+  const ctx = {
     flush,
-    activeClass: twMerge(activeClass, classActive),
-    inactiveClass: twMerge(inactiveClass, classInactive),
-    selected: multiple ? undefined : writable()
+    activeClass,
+    inactiveClass,
+    isSingle
   };
 
-  setContext<AccordionCtxType>('ctx', ctx);
+  setContext("ctx", ctx);
 
-  let frameClass: string;
-  $: frameClass = twMerge(defaultClass, $$props.class);
+  const base = $derived(accordionTheme({ flush, className }));
 </script>
 
-<Frame {...$$restProps} class={frameClass} color="none">
-  <slot />
-</Frame>
+<div {...restProps} class={base}>
+  {@render children()}
+</div>
 
 <!--
 @component
-[Go to docs](https://flowbite-svelte.com/)
+[Go to docs](https://preview.flowbite-svelte.com/)
 ## Props
-@prop export let multiple: $$Props['multiple'] = false;
-@prop export let flush: $$Props['flush'] = false;
-@prop export let activeClass: $$Props['activeClass'] = 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800';
-@prop export let inactiveClass: $$Props['inactiveClass'] = 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800';
-@prop export let defaultClass: $$Props['defaultClass'] = 'text-gray-500 dark:text-gray-400';
-@prop export let classActive: $$Props['classActive'] = '';
-@prop export let classInactive: $$Props['classInactive'] = '';
+@props: children: any;
+@props:flush: any;
+@props:activeClass: any;
+@props:inactiveClass: any;
+@props:isSingle: any = true;
+@props:class: string;
 -->
