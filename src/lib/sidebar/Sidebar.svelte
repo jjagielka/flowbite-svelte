@@ -5,7 +5,7 @@
   import { sineIn } from 'svelte/easing';
   import { type SidebarProps as Props, sidebar, type SidebarCtxType } from '.';
 
-  let { children, isOpen = false, closeSidebar, isSingle = true, breakpoint = 'md', position = 'absolute', activateClickOutside = true, backdrop = true, backdropClass, transition = fly, params, divClass, ariaLabel, nonActiveClass, activeClass, activeUrl = '', class: className, ...restProps }: Props = $props();
+  let { children, isOpen = false, closeSidebar, isSingle = true, breakpoint = 'md', position = 'fixed', activateClickOutside = true, backdrop = true, backdropClass, transition = fly, params, divClass, ariaLabel, nonActiveClass, activeClass, activeUrl = '', class: className, ...restProps }: Props = $props();
 
   const breakpointValues = {
     sm: 640,
