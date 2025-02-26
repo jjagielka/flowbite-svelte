@@ -33,8 +33,8 @@
   }
 </script>
 
-<nav {...restProps} class={base({ class: navClass })} use:clickOutside={closeNav}>
-  <div class={container({ class: divClass })}>
+<nav {...restProps} class={base({ class: navClass, fluid })} use:clickOutside={closeNav}>
+  <div class={container({ class: divClass, fluid })}>
     {#if brand}
       {@render brand()}
     {/if}

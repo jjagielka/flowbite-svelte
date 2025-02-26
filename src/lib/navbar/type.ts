@@ -1,6 +1,6 @@
 import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
 import type { Snippet } from "svelte";
-import type { navbarType } from "$lib/types";
+import type { NavbarType } from "$lib/types";
 
 interface NavbarProps extends HTMLAttributes<HTMLElement> {
   children: Snippet;
@@ -13,7 +13,7 @@ interface NavbarProps extends HTMLAttributes<HTMLElement> {
   fluid?: boolean;
   brand?: Snippet;
   hamburgerMenu?: boolean;
-  breakPoint?: navbarType["breakPoint"];
+  breakPoint?: NavbarType["breakPoint"];
   navClass?: string;
   divClass?: string;
   btnClass?: string;

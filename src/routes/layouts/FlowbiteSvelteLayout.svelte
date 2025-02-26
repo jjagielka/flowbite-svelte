@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { DarkMode, Navbar, NavBrand, NavHamburger, NavLi, NavUl } from '$lib';
+  import { DarkMode, Navbar, NavBrand, NavHamburger, NavLi, NavUl, uiHelpers } from '$lib';
   import Tooltip from '$lib/tooltip/Tooltip.svelte';
   import { onMount, setContext } from 'svelte';
   import { writable, type Writable } from 'svelte/store';
@@ -12,14 +12,25 @@
   import ToolbarLink from '../utils/ToolbarLink.svelte';
   import AlgoliaSearch from '../utils/AlgoliaSearch.svelte';
 
-  let isHomePage: boolean;
-  $: isHomePage = $page.route.id === '/';
+  let { children } = $props();
+
+  let isHomePage: boolean = $derived($page.route.id === '/');
   /*eslint no-undef: "off"*/
   const version = __VERSION__;
-  $: activeUrl = $page.url.pathname;
+
   let logo = '/images/flowbite-svelte-icon-logo.svg';
-  let divClass = 'w-full ms-auto lg:block lg:w-auto order-1 lg:order-none';
+  // let divClass = 'w-full ms-auto lg:block lg:w-auto order-1 lg:order-none';
   let ulClass = 'flex flex-col py-3 my-4 lg:flex-row lg:my-0 text-sm font-medium text-gray-900 dark:text-gray-300 gap-4';
+
+  let activeUrl = $state($page.url.pathname);
+  let nav = uiHelpers();
+  let navStatus = $state(false);
+  let toggleNav = nav.toggle;
+  let closeNav = nav.close;
+  $effect(() => {
+    navStatus = nav.isOpen;
+    activeUrl = $page.url.pathname;
+  });
 
   const drawerHiddenStore: Writable<boolean> = writable<boolean>(true);
   setContext('drawer', drawerHiddenStore);
@@ -44,10 +55,7 @@
 </script>
 
 <header class="sticky top-0 z-40 flex-none w-full mx-auto bg-white border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800">
-  <Navbar color="default" fluid class="py-1.5 {isHomePage ? 'lg:px-0 max-w-7xl mx-auto' : ''}">
-    <span hidden={$page.route.id === '/'}>
-      <NavHamburger onClick={toggleDrawer} class="m-0 me-3 md:block lg:hidden" />
-    </span>
+  <Navbar color="default" {toggleNav} {closeNav} {navStatus} breakPoint="xxl" fluid class="py-1.5 {isHomePage ? 'lg:px-0 max-w-7xl mx-auto' : ''}">
     <NavBrand href="/">
       <img src={logo} class="me-3 h-8" alt="Flowbite Svelte Logo" />
       <span class="self-center whitespace-nowrap text-2xl font-semibold text-gray-900 dark:text-white"> Flowbite Svelte </span>
@@ -61,7 +69,7 @@
       </div>
     {/if}
 
-    <NavUl {divClass} {ulClass} {activeUrl} on:click={() => setTimeout(toggle, 1)} nonActiveClass="md:ps-3! md:py-2! lg:ps-0! text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 dark:text-gray-400 lg:dark:text-white lg:dark:hover:text-primary-700 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent" activeClass="md:ps-3! md:py-2! lg:ps-0! text-white bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:dark:text-primary-700 dark:bg-primary-600 lg:dark:bg-transparent cursor-default">
+    <NavUl {activeUrl} onclick={() => setTimeout(toggle, 1)}>
       <NavLi class="lg:px-2 lg:mb-0" href="/">Home</NavLi>
       <NavLi class="lg:px-2 lg:mb-0" href="/docs/pages/introduction">Docs</NavLi>
       <NavLi class="lg:px-2 lg:mb-0" href="/docs/components/accordion">Components</NavLi>
@@ -89,10 +97,10 @@
       </DocBadge>
     </a>
 
-    <NavHamburger on:click={toggle} class="ms-3 m-0 md:block lg:hidden {isHomePage ? '' : 'hidden'}" />
+    <!-- <NavHamburger on:click={toggle} class="ms-3 m-0 md:block lg:hidden {isHomePage ? '' : 'hidden'}" /> -->
   </Navbar>
 </header>
 
 <div class="lg:flex w-full">
-  <slot />
+  {@render children()}
 </div>

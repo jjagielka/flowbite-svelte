@@ -12,7 +12,7 @@ export const navbar = tv({
   variants: {
     fluid: {
       true: {
-        container: "w-full"
+        container: "w-full!"
       },
       false: {
         container: "container"
@@ -22,22 +22,22 @@ export const navbar = tv({
       md: {
         container: "max-w-(--breakpoint-xl)",
         toggleButton: "md:hidden",
-        menuContainer: "md:block md:w-auto"
+        menuContainer: "md:flex items-center md:w-auto"
       },
       lg: {
         container: "max-w-(--breakpoint-xl)",
         toggleButton: "lg:hidden",
-        menuContainer: "lg:block lg:w-auto"
+        menuContainer: "lg:flex items-center lg:w-auto"
       },
       xl: {
         container: "max-w-(--breakpoint-xl)",
         toggleButton: "xl:hidden",
-        menuContainer: "xl:block xl:w-auto"
+        menuContainer: "xl:flex items-center xl:w-auto"
       },
       xxl: {
         container: "w-full",
         toggleButton: "2xl:hidden",
-        menuContainer: "2xl:block 2xl:w-auto"
+        menuContainer: "2xl:flex items-center"
       }
     },
     navStatus: {
