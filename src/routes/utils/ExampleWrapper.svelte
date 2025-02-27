@@ -114,10 +114,6 @@
   }
 
   let copy_text = 'Copy';
-
-  $effect(() => {
-    // console.log(meta);
-  });
 </script>
 
 <div class="mt-8 code-example" use:init>

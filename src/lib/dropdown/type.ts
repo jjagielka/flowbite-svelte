@@ -4,8 +4,7 @@ import type { HTMLAttributes, HTMLAnchorAttributes } from "svelte/elements";
 import type { PopperProps } from "$lib/utils/Popper.svelte";
 
 interface DropdownProps extends PopperProps {
-  header?: Snippet;
-  footer?: Snippet;
+  simple?: boolean;
   divClass?: string;
   footerClass?: string;
   headerClass?: string;
@@ -19,10 +18,6 @@ interface DropdownDividerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 interface DropdownHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  children: Snippet;
-}
-
-interface DropdownFooterProps extends HTMLAttributes<HTMLDivElement> {
   children: Snippet;
 }
 

@@ -5,7 +5,7 @@
   import { type DropdownProps as Props, dropdown } from './';
   import DropdownGroup from './DropdownGroup.svelte';
 
-  let { children, header, footer, placement = 'bottom', offset = 2, class: className, backdropClass, activeUrl = '', ...restProps }: Props = $props();
+  let { children, simple = false, placement = 'bottom', offset = 2, class: className, backdropClass, activeUrl = '', ...restProps }: Props = $props();
 
   const { base, backdrop } = $derived(dropdown());
   const activeUrlStore = writable('');
@@ -19,14 +19,12 @@
 <!-- Dropdown menu -->
 
 <Popper {...restProps} {placement} {offset} class={base({ class: className })}>
-  {#if header}
-    {@render header()}
-  {/if}
-  <DropdownGroup>
+  {#if simple}
+    <DropdownGroup>
+      {@render children()}
+    </DropdownGroup>
+  {:else}
     {@render children()}
-  </DropdownGroup>
-  {#if footer}
-    {@render footer()}
   {/if}
 </Popper>
 

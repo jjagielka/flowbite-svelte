@@ -15,10 +15,6 @@ export const dropdownHeader = tv({
   base: "px-4 py-3 text-sm text-gray-900 dark:text-white"
 });
 
-export const dropdownFooter = tv({
-  base: "overflow-hidden rounded-b-lg py-1"
-});
-
 export const dropdownItem = tv({
   slots: {
     anchor: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white",

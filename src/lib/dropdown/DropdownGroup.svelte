@@ -4,10 +4,6 @@
   let { children, class: className, ...restProps }: Props = $props();
 
   const ulCls = $derived(dropdownGroup({ class: className }));
-  $effect(() => {
-    console.log('cN', className);
-    console.log('ulcls', ulCls);
-  });
 </script>
 
 <ul {...restProps} class={ulCls}>
