@@ -1,0 +1,15 @@
+{
+  "name": "Theme",
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "theme",
+      "any",
+      ""
+    ]
+  ]
+}

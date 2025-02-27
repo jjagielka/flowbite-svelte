@@ -1,6 +1,20 @@
 {
   "name": "TableBody",
-  "slots": ["row"],
-  "events": [],
-  "props": [["tableBodyClass?", "string", "undefined"]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "bodyItems",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

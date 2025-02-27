@@ -1,0 +1,15 @@
+{
+  "name": "DropdownFooter",
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
+}

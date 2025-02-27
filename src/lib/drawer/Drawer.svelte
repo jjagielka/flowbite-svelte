@@ -31,7 +31,7 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: children: any;
 @props:drawerStatus: any;
@@ -41,7 +41,7 @@
 @props:width: any;
 @props:backdrop: any = true;
 @props:backdropClass: any;
-@props:placement: any = "left";
+@props:placement: any = 'left';
 @props:class: string;
 @props:params: any = { x: -320;
 @props:duration: any;

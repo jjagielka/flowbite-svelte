@@ -1,9 +1,40 @@
 {
   "name": "Popover",
-  "slots": ["title"],
-  "events": ["show"],
   "props": [
-    ["title?", "string", ""],
-    ["defaultClass?", "string", ""]
+    [
+      "titleSlot",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"default\""
+    ],
+    [
+      "trigger",
+      "any",
+      "\"click\""
+    ],
+    [
+      "arrow",
+      "any",
+      "true"
+    ],
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "placement",
+      "any",
+      "\"top\""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

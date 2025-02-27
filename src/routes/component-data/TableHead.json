@@ -1,9 +1,45 @@
 {
   "name": "TableHead",
-  "slots": [],
-  "events": [],
   "props": [
-    ["theadClass?", "string", "'text-xs uppercase'"],
-    ["defaultRow?", "boolean", "true"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "headerSlot",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      ""
+    ],
+    [
+      "striped",
+      "any",
+      ""
+    ],
+    [
+      "noborder",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "headItems",
+      "any",
+      ""
+    ],
+    [
+      "defaultRow",
+      "any",
+      "true"
+    ]
   ]
 }

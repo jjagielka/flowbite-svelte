@@ -1,6 +1,20 @@
 {
   "name": "Footer",
-  "slots": [],
-  "events": [],
-  "props": [["footerType?", "'sitemap' | 'default' | 'logo' | 'socialmedia'", "undefined"]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "footerType",
+      "any",
+      "\"default\""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

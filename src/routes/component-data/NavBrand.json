@@ -1,6 +1,30 @@
 {
   "name": "NavBrand",
-  "slots": [],
-  "events": [],
-  "props": [["href?", "string", "''"]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "siteName",
+      "any",
+      ""
+    ],
+    [
+      "closeNav",
+      "any",
+      ""
+    ],
+    [
+      "aClass",
+      "any",
+      ""
+    ],
+    [
+      "spanClass",
+      "any",
+      ""
+    ]
+  ]
 }

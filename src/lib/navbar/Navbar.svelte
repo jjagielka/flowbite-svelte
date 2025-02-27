@@ -69,7 +69,7 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: children: any;
 @props:navSlotBlock: any;
@@ -81,7 +81,7 @@
 @props:fluid: any;
 @props:brand: any;
 @props:hamburgerMenu: any = true;
-@props:breakPoint: any = "md";
+@props:breakPoint: any = 'md';
 @props:navClass: any;
 @props:divClass: any;
 @props:btnClass: any;

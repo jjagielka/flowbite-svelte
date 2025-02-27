@@ -1,6 +1,60 @@
 {
   "name": "CheckboxButton",
-  "slots": [],
-  "events": ["keyup", "keydown", "keypress", "focus", "blur", "click", "mouseover", "mouseenter", "mouseleave", "paste", "change"],
-  "props": []
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "group",
+      "any",
+      "[]"
+    ],
+    [
+      "value",
+      "any",
+      "\"on\""
+    ],
+    [
+      "checked",
+      "any",
+      ""
+    ],
+    [
+      "inline",
+      "any",
+      "true"
+    ],
+    [
+      "pill",
+      "any",
+      ""
+    ],
+    [
+      "outline",
+      "any",
+      ""
+    ],
+    [
+      "size",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      ""
+    ],
+    [
+      "shadow",
+      "any",
+      ""
+    ]
+  ]
 }

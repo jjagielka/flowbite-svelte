@@ -1,22 +1,23 @@
 <script lang="ts">
-  import { getContext } from "svelte";
-  import { type DropdownLiProps as Props, dropdownli } from "./";
-  import { tv } from "tailwind-variants";
+  import { getContext } from 'svelte';
+  import { type DropdownItemProps as Props, dropdownItem } from '.';
+  import { tv } from 'tailwind-variants';
 
   let { aClass, children, href, activeClass, liClass, class: className, ...restProps }: Props = $props();
 
-  const activeUrlStore = getContext("activeUrl") as { subscribe: (callback: (value: string) => void) => void };
-  let sidebarUrl = $state("");
+  const activeUrlStore = getContext('activeUrl') as { subscribe: (callback: (value: string) => void) => void };
+  let sidebarUrl = $state('');
   activeUrlStore.subscribe((value) => {
     // console.log('value: ', value)
     sidebarUrl = value;
   });
+
   let active = $state(false);
   $effect(() => {
     active = sidebarUrl ? href === sidebarUrl : false;
   });
 
-  const { anchor, activeAnchor } = $derived(dropdownli());
+  const { anchor, activeAnchor } = $derived(dropdownItem());
   let finalClass = $derived([active ? activeAnchor({ class: activeClass }) : anchor({ class: aClass }), className]);
 </script>
 
@@ -34,7 +35,7 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: aClass: any;
 @props:children: any;

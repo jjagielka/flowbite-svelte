@@ -1,13 +1,45 @@
 {
   "name": "Indicator",
-  "slots": [],
-  "events": [],
   "props": [
-    ["color?", "IndicatorColorType", ""],
-    ["rounded?", "boolean", "false"],
-    ["size?", "'xs' | 'sm' | 'md' | 'lg' | 'xl'", ""],
-    ["border?", "boolean", "false"],
-    ["placement?", "IndicatorPlacementType", "undefined"],
-    ["offset?", "boolean", "true"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"primary\""
+    ],
+    [
+      "cornerStyle",
+      "any",
+      "\"circular\""
+    ],
+    [
+      "size",
+      "any",
+      "\"md\""
+    ],
+    [
+      "border",
+      "any",
+      "false"
+    ],
+    [
+      "placement",
+      "any",
+      ""
+    ],
+    [
+      "offset",
+      "any",
+      "true"
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

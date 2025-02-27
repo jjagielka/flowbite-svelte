@@ -1,6 +1,15 @@
 {
   "name": "Activity",
-  "slots": [],
-  "events": [],
-  "props": [["olClass?", "string", "'relative border-s border-gray-200 dark:border-gray-700'"]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

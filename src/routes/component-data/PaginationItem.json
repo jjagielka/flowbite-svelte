@@ -1,6 +1,30 @@
 {
   "name": "PaginationItem",
-  "slots": [],
-  "events": ["blur", "change", "click", "focus", "keydown", "keypress", "keyup", "mouseenter", "mouseleave", "mouseover"],
-  "props": []
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "size",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "href",
+      "any",
+      ""
+    ],
+    [
+      "active",
+      "any",
+      ""
+    ]
+  ]
 }

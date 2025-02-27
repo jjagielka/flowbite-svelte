@@ -57,11 +57,11 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: class: string;
 @props:lightIcon: any;
 @props:darkIcon: any;
-@props:size: any = "md";
-@props:ariaLabel: any = "Dark mode";
+@props:size: any = 'md';
+@props:ariaLabel: any = 'Dark mode';
 -->

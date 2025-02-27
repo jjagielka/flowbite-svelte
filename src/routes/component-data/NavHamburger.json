@@ -1,6 +1,15 @@
 {
   "name": "NavHamburger",
-  "slots": [],
-  "events": [],
-  "props": []
+  "props": [
+    [
+      "toggleNav",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

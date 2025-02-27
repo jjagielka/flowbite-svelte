@@ -1,6 +1,30 @@
 {
   "name": "Toolbar",
-  "slots": ["end"],
-  "events": [],
-  "props": [["embedded?", "boolean", ""]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "end",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"default\""
+    ],
+    [
+      "embedded",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

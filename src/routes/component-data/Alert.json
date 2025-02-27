@@ -1,9 +1,65 @@
 {
   "name": "Alert",
-  "slots": ["icon", "close-button"],
-  "events": ["close", "click", "change", "keydown", "keyup", "focus", "blur", "mouseenter", "mouseleave"],
   "props": [
-    ["dismissable?", "boolean", "false"],
-    ["defaultClass?", "string", "'p-4 gap-3 text-sm'"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "icon",
+      "any",
+      ""
+    ],
+    [
+      "alertStatus",
+      "any",
+      "$bindable(true)"
+    ],
+    [
+      "closeIcon",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "'primary'"
+    ],
+    [
+      "rounded",
+      "any",
+      "true"
+    ],
+    [
+      "border",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "dismissable",
+      "any",
+      ""
+    ],
+    [
+      "transition",
+      "any",
+      "fade"
+    ],
+    [
+      "params",
+      "any",
+      ""
+    ],
+    [
+      "onclick",
+      "any",
+      ""
+    ]
   ]
 }

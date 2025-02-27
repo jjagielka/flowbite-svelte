@@ -1,9 +1,15 @@
 {
   "name": "VideoPlaceholder",
-  "slots": [],
-  "events": [],
   "props": [
-    ["divClass?", "string", "'flex justify-center items-center h-56 bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700'"],
-    ["size?", "keyof Sizes", ""]
+    [
+      "size",
+      "any",
+      "\"sm\""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

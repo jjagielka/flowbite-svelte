@@ -1,13 +1,30 @@
 {
   "name": "Spinner",
-  "slots": [],
-  "events": [],
   "props": [
-    ["color?", "'primary' | 'blue' | 'gray' | 'green' | 'red' | 'yellow' | 'pink' | 'purple' | 'white' | 'custom'", "'primary'"],
-    ["bg?", "string", "'text-gray-300'"],
-    ["size?", "string | number", "'8'"],
-    ["currentFill?", "string", "'currentFill'"],
-    ["currentColor?", "string", "'currentColor'"],
-    ["customColor?", "string", "''"]
+    [
+      "color",
+      "any",
+      "\"primary\""
+    ],
+    [
+      "size",
+      "any",
+      "\"8\""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "currentFill",
+      "any",
+      "\"currentFill\""
+    ],
+    [
+      "currentColor",
+      "any",
+      "\"currentColor\""
+    ]
   ]
 }

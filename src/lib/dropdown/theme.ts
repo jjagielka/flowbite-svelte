@@ -7,7 +7,7 @@ export const dropdown = tv({
   }
 });
 
-export const dropdowndivider = tv({
+export const dropdownDivider = tv({
   base: "my-1 h-px bg-gray-100 dark:bg-gray-500"
 });
 
@@ -19,13 +19,13 @@ export const dropdownFooter = tv({
   base: "overflow-hidden rounded-b-lg py-1"
 });
 
-export const dropdownli = tv({
+export const dropdownItem = tv({
   slots: {
     anchor: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white",
     activeAnchor: "block px-4 py-2 text-primary-700 dark:text-primary-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
   }
 });
 
-export const dropdownul = tv({
+export const dropdownGroup = tv({
   base: "py-2 text-sm text-gray-700 dark:text-gray-200"
 });

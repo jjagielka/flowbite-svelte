@@ -1,6 +1,60 @@
 {
   "name": "Button",
-  "slots": [],
-  "events": ["click", "change", "keydown", "keyup", "touchend", "touchcancel", "mouseenter", "mouseleave", "click", "change", "keydown", "keyup", "touchend", "touchcancel", "mouseenter", "mouseleave"],
-  "props": []
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "pill",
+      "any",
+      "false"
+    ],
+    [
+      "outline",
+      "any",
+      "false"
+    ],
+    [
+      "size",
+      "any",
+      "group ? \"sm\" : \"md\""
+    ],
+    [
+      "href",
+      "any",
+      ""
+    ],
+    [
+      "type",
+      "any",
+      "\"button\""
+    ],
+    [
+      "color",
+      "any",
+      "group ? (outline ? \"dark\" : \"alternative\") : \"primary\""
+    ],
+    [
+      "shadow",
+      "any",
+      "false"
+    ],
+    [
+      "tag",
+      "any",
+      "\"button\""
+    ],
+    [
+      "disabled",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

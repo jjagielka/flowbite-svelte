@@ -57,12 +57,12 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: children: any;
 @props:icon: any;
 @props:badgeStatus: any = $bindable(true);
-@props:color: any = "primary";
+@props:color: any = 'primary';
 @props:large: any = false;
 @props:dismissable: any = false;
 @props:class: string;

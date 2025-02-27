@@ -1,10 +1,25 @@
 {
   "name": "Label",
-  "slots": [],
-  "events": [],
   "props": [
-    ["color?", "'gray' | 'green' | 'red' | 'disabled'", ""],
-    ["defaultClass?", "string", "'text-sm rtl:text-right font-medium block'"],
-    ["show?", "boolean", "true"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"gray\""
+    ],
+    [
+      "show",
+      "any",
+      "true"
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

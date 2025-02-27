@@ -82,7 +82,7 @@
           </TabItem>
         {/if}
 
-        {#if compo.data.default.events.length > 0}
+        <!-- {#if compo.data.default.events.length > 0}
           <TabItem>
             <div slot="title" class="flex items-center gap-2">
               <AdjustmentsVerticalSolid size="sm" />
@@ -94,9 +94,9 @@
               </TableProp>
             </ul>
           </TabItem>
-        {/if}
+        {/if} -->
 
-        {#if compo.data.default.slots.length > 0}
+        <!-- {#if compo.data.default.slots.length > 0}
           <TabItem>
             <div slot="title" class="flex items-center gap-2">
               <GridSolid size="sm" />
@@ -108,7 +108,7 @@
               </TableProp>
             </ul>
           </TabItem>
-        {/if}
+        {/if} -->
       </Tabs>
     {/each}
   </div>

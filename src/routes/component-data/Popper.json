@@ -1,17 +1,80 @@
 {
   "name": "Popper",
-  "slots": [],
-  "events": [],
   "props": [
-    ["activeContent?", "boolean", ""],
-    ["arrow?", "boolean", ""],
-    ["offset?", "number", ""],
-    ["placement?", "Placement", ""],
-    ["trigger?", "'hover' | 'click' | 'focus'", ""],
-    ["triggeredBy?", "string", ""],
-    ["reference?", "string", ""],
-    ["strategy?", "'absolute' | 'fixed'", ""],
-    ["open?", "boolean", ""],
-    ["yOnly?", "boolean", ""]
+    [
+      "triggeredBy",
+      "any",
+      ""
+    ],
+    [
+      "trigger",
+      "any",
+      "\"click\""
+    ],
+    [
+      "placement",
+      "any",
+      "\"top\""
+    ],
+    [
+      "offset",
+      "any",
+      "8"
+    ],
+    [
+      "arrow",
+      "any",
+      "true"
+    ],
+    [
+      "border",
+      "any",
+      "true"
+    ],
+    [
+      "yOnly",
+      "any",
+      "false"
+    ],
+    [
+      "strategy",
+      "any",
+      "\"absolute\""
+    ],
+    [
+      "reference",
+      "any",
+      ""
+    ],
+    [
+      "middlewares",
+      "any",
+      "[dom.flip()"
+    ],
+    [
+      "dom.shift()]",
+      "any",
+      ""
+    ],
+    [
+      "onbeforetoggle",
+      "any",
+      ""
+    ],
+    [
+      "ontoggle",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      "\"\""
+    ],
+    [
+      "children",
+      "any",
+      ""
+    ]
   ]
 }

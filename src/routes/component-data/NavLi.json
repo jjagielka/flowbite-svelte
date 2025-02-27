@@ -1,6 +1,30 @@
 {
   "name": "NavLi",
-  "slots": [],
-  "events": ["blur", "change", "click", "focus", "keydown", "keypress", "keyup", "mouseenter", "mouseleave", "mouseover"],
-  "props": []
+  "props": [
+    [
+      "closeNav",
+      "any",
+      ""
+    ],
+    [
+      "href",
+      "any",
+      ""
+    ],
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "aClass",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
+  ]
 }

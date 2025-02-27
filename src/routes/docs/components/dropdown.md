@@ -116,10 +116,10 @@ Use this example to show extra information outside of the list of menu items ins
 
 <Button>Dropdown button<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
 <Dropdown>
-  <div slot="header" class="px-4 py-2">
+  <DropdownHeader>
     <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
     <span class="block truncate text-sm font-medium">name@flowbite.com</span>
-  </div>
+  </DropdownHeader>
   <DropdownItem>Dashboard</DropdownItem>
   <DropdownItem>Settings</DropdownItem>
   <DropdownItem>Earnings</DropdownItem>
@@ -371,13 +371,13 @@ Show a list of toggle switch elements inside the dropdown menu to enable a yes o
   let group3 = 2;
 </script>
 
-<Navbar let:hidden let:toggle>
+<Navbar >
   <NavBrand href="/">
     <img src="/images/flowbite-svelte-icon-logo.svg" class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
     <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite</span>
   </NavBrand>
-  <NavHamburger on:click={toggle} />
-  <NavUl {hidden} class="ms-3 pt-6">
+  <NavHamburger />
+  <NavUl class="ms-3 pt-6">
     <NavLi href="/" active={true}>Home</NavLi>
     <NavLi class="cursor-pointer">
       Dropdown<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />

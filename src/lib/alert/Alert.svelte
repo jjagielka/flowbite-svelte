@@ -70,13 +70,13 @@
 
 <!--
 @component
-[Go to docs](https://preview.flowbite-svelte.com/)
+[Go to docs](https://flowbite-svelte.com/)
 ## Props
 @props: children: any;
 @props:icon: any;
 @props:alertStatus: any = $bindable(true);
 @props:closeIcon: any;
-@props:color: any = "primary";
+@props:color: any = 'primary';
 @props:rounded: any = true;
 @props:border: any;
 @props:class: string;

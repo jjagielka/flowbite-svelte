@@ -1,19 +1,70 @@
 {
   "name": "Checkbox",
-  "slots": [],
-  "events": ["keyup", "keydown", "keypress", "focus", "blur", "click", "mouseover", "mouseenter", "mouseleave", "paste", "change"],
   "props": [
-    ["color?", "FormColorType", ""],
-    ["custom?", "boolean", ""],
-    ["inline?", "boolean", ""],
-    ["group?", "string[]", "[]"],
-    ["choices?", "CheckboxItem[]", ""],
-    ["value?", "string | number", "'on'"],
-    ["checked?", "boolean", "undefined"],
-    ["spacing?", "string", ""],
-    ["groupLabelClass?", "string", ""],
-    ["groupInputClass?", "string", ""],
-    ["class?", "string", ""],
-    ["required?", "boolean", ""]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "aria_describedby",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"primary\""
+    ],
+    [
+      "custom",
+      "any",
+      ""
+    ],
+    [
+      "inline",
+      "any",
+      ""
+    ],
+    [
+      "tinted",
+      "any",
+      ""
+    ],
+    [
+      "rounded",
+      "any",
+      ""
+    ],
+    [
+      "group",
+      "any",
+      "$bindable([])"
+    ],
+    [
+      "choices",
+      "any",
+      "[]"
+    ],
+    [
+      "checked",
+      "any",
+      "$bindable(false)"
+    ],
+    [
+      "classLabel",
+      "any",
+      ""
+    ],
+    [
+      "indeterminate",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

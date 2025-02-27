@@ -1,6 +1,35 @@
 {
   "name": "TableBodyRow",
-  "slots": [],
-  "events": ["click", "contextmenu", "dblclick"],
-  "props": [["color?", "'blue' | 'green' | 'red' | 'yellow' | 'purple' | 'default' | 'custom'", ""]]
+  "props": [
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      ""
+    ],
+    [
+      "striped",
+      "any",
+      ""
+    ],
+    [
+      "hoverable",
+      "any",
+      ""
+    ],
+    [
+      "noborder",
+      "any",
+      ""
+    ]
+  ]
 }

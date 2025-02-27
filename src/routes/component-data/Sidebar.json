@@ -1,12 +1,90 @@
 {
   "name": "Sidebar",
-  "slots": [],
-  "events": [],
   "props": [
-    ["activeUrl?", "string", ""],
-    ["asideClass?", "string", "'w-64'"],
-    ["nonActiveClass?", "string", ""],
-    ["activeClass?", "string", ""],
-    ["ariaLabel?", "string", "'Sidebar'"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "isOpen",
+      "any",
+      "false"
+    ],
+    [
+      "closeSidebar",
+      "any",
+      ""
+    ],
+    [
+      "isSingle",
+      "any",
+      "true"
+    ],
+    [
+      "breakpoint",
+      "any",
+      "'md'"
+    ],
+    [
+      "position",
+      "any",
+      "'fixed'"
+    ],
+    [
+      "activateClickOutside",
+      "any",
+      "true"
+    ],
+    [
+      "backdrop",
+      "any",
+      "true"
+    ],
+    [
+      "backdropClass",
+      "any",
+      ""
+    ],
+    [
+      "transition",
+      "any",
+      "fly"
+    ],
+    [
+      "params",
+      "any",
+      ""
+    ],
+    [
+      "divClass",
+      "any",
+      ""
+    ],
+    [
+      "ariaLabel",
+      "any",
+      ""
+    ],
+    [
+      "nonActiveClass",
+      "any",
+      ""
+    ],
+    [
+      "activeClass",
+      "any",
+      ""
+    ],
+    [
+      "activeUrl",
+      "any",
+      "''"
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }

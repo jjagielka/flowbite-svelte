@@ -1,10 +1,50 @@
 {
   "name": "Listgroup",
-  "slots": [],
-  "events": [],
   "props": [
-    ["items?", "T[]", ""],
-    ["active?", "boolean", "false"],
-    ["defaultClass?", "string", "'divide-y divide-gray-200 dark:divide-gray-600'"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "items",
+      "any",
+      ""
+    ],
+    [
+      "active",
+      "any",
+      ""
+    ],
+    [
+      "onclick",
+      "any",
+      ""
+    ],
+    [
+      "rounded",
+      "any",
+      "true"
+    ],
+    [
+      "border",
+      "any",
+      "true"
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ],
+    [
+      "itemClass",
+      "any",
+      ""
+    ],
+    [
+      "iconClass",
+      "any",
+      ""
+    ]
   ]
 }

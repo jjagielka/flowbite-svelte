@@ -1,14 +1,60 @@
 {
   "name": "Toggle",
-  "slots": ["offLabel"],
-  "events": ["click", "change"],
   "props": [
-    ["size?", "'small' | 'default' | 'large' | 'custom'", ""],
-    ["group?", "string[]", "[]"],
-    ["value?", "string | number", "''"],
-    ["checked?", "boolean", "undefined"],
-    ["customSize?", "string", "''"],
-    ["classDiv?", "string", ""],
-    ["disabled?", "boolean", "false"]
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "toggleSize",
+      "any",
+      "\"default\""
+    ],
+    [
+      "value",
+      "any",
+      ""
+    ],
+    [
+      "checked",
+      "any",
+      "$bindable()"
+    ],
+    [
+      "disabled",
+      "any",
+      ""
+    ],
+    [
+      "color",
+      "any",
+      "\"primary\""
+    ],
+    [
+      "aria_describedby",
+      "any",
+      ""
+    ],
+    [
+      "labelClass",
+      "any",
+      ""
+    ],
+    [
+      "inputClass",
+      "any",
+      ""
+    ],
+    [
+      "spanClass",
+      "any",
+      ""
+    ],
+    [
+      "leftLabel",
+      "any",
+      ""
+    ]
   ]
 }

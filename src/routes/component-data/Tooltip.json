@@ -1,9 +1,45 @@
 {
   "name": "Tooltip",
-  "slots": [],
-  "events": ["show"],
   "props": [
-    ["type?", "'dark' | 'light' | 'auto' | 'custom'", ""],
-    ["defaultClass?", "string", ""]
+    [
+      "type",
+      "any",
+      "\"dark\""
+    ],
+    [
+      "color",
+      "any",
+      "\"default\""
+    ],
+    [
+      "trigger",
+      "any",
+      "\"hover\""
+    ],
+    [
+      "arrow",
+      "any",
+      "true"
+    ],
+    [
+      "children",
+      "any",
+      ""
+    ],
+    [
+      "placement",
+      "any",
+      "\"top\""
+    ],
+    [
+      "onbeforetoggle",
+      "any",
+      ""
+    ],
+    [
+      "class",
+      "string",
+      ""
+    ]
   ]
 }
