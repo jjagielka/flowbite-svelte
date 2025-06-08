@@ -1,62 +1,34 @@
 <script lang="ts">
-  import { getContext } from "svelte";
-  import { writable } from "svelte/store";
-  import { tabItem, tabs } from ".";
-  import  {type TabitemProps, type TabCtxType, cn } from "$lib";
+  import { tabItem, type TabitemProps } from "$lib";
+  import { createRawSnippet, getContext, onMount } from "svelte";
+  import type { TabState } from "./Tabs.svelte";
 
-  let { children, titleSlot, open = false, title = "Tab title", activeClass, inactiveClass, class: className, disabled, tabStyle, ...restProps }: TabitemProps = $props();
+  let { children, titleSlot, open = false, title = "Tab title", activeClass, inactiveClass, class: className, ...restProps }: TabitemProps = $props();
 
-  const ctx: TabCtxType = getContext("ctx");
-  let compoTabStyle = $derived(tabStyle ? tabStyle : ctx.tabStyle || "full");
+  const { activeSnippet, tabPanels, tabStyle } = getContext<TabState>("tabsContext");
 
-  const { active, inactive } = $derived(tabs({ tabStyle: compoTabStyle, hasDivider: true }));
-  let selected = ctx.selected ?? writable<HTMLElement>();
-  // Generate a unique ID for this tab button
-  const tabId = `tab-${Math.random().toString(36).substring(2)}`;
+  let { base, button, active, inactive } = $derived(tabItem({ tabStyle }));
 
-  function init(node: HTMLElement) {
-    selected.set(node);
+  const simpleSnippet = (name: string) =>
+    createRawSnippet(() => ({
+      render: () => `<span>${name}</span>`
+    }));
 
-    const destroy = selected.subscribe((x) => {
-      if (x !== node) {
-        open = false;
-      }
-    });
+  let titleSnippet = titleSlot ?? simpleSnippet(title);
 
-    return { destroy };
-  }
+  onMount(() => {
+    tabPanels.set(titleSnippet, children ?? simpleSnippet(""));
 
-  const { base, button, content } = $derived(tabItem({ open, disabled }));
-
+    return () => {
+      tabPanels.delete(titleSnippet);
+    };
+  });
 </script>
 
-<li {...restProps} class={cn(base(), className)} role="presentation">
-  <button
-    type="button"
-    onclick={() => (open = true)}
-    role="tab"
-    id={tabId}
-    aria-controls={ctx.panelId}
-    aria-selected={open}
-    {disabled}
-    class={cn(button(), open 
-      ? (activeClass ?? active())
-      : (inactiveClass ?? inactive()))}
-  >
-    {#if titleSlot}
-      {@render titleSlot()}
-    {:else}
-      {title}
-    {/if}
+<li role="presentation" class={base()}>
+  <button type="button" role="tab" {...restProps} onclick={() => (activeSnippet.value = titleSnippet)} class={[button(), activeSnippet.value === titleSnippet ? active() : inactive()]}>
+    {@render titleSnippet()}
   </button>
-
-  {#if open && children}
-    <div class={content()}>
-      <div use:init>
-        {@render children()}
-      </div>
-    </div>
-  {/if}
 </li>
 
 <!--

@@ -1591,7 +1591,7 @@ export interface TabsProps extends HTMLAttributes<HTMLUListElement> {
   divider?: boolean;
 }
 
-export interface TabitemProps extends HTMLLiAttributes {
+export interface TabitemProps extends HTMLButtonAttributes {
   children?: Snippet;
   titleSlot?: Snippet;
   open?: boolean;
