@@ -198,42 +198,49 @@ This is an example of the tabs component where you can also use a SVG powered ic
 
 If you want to use pills as a style for the tabs component use `tabStyle="pill"`.
 
-```svelte example
+```svelte example class="flex flex-col gap-4 items-end"
 <script>
-  import { Tabs, TabItem } from "flowbite-svelte";
+  import { Tabs, TabItem, Checkbox } from "flowbite-svelte";
+
+  let vertical = false;
 </script>
 
-<Tabs tabStyle="pill">
+
+<Checkbox bind:checked={vertical}>Vertical</Checkbox>
+<Tabs tabStyle="pill" {vertical}>
   <TabItem open>
     {#snippet titleSlot()}
       <span>Profile</span>
     {/snippet}
-    <p class="text-sm text-gray-500 dark:text-gray-400">
-      <b>Profile:</b>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
+    <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
+        <p class="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+        <p>The tab JavaScript swaps classes to control the content visibility and styling.</p> 
+    </div>
   </TabItem>
   <TabItem>
     {#snippet titleSlot()}
       <span>Dashboard</span>
     {/snippet}
-    <p class="text-sm text-gray-500 dark:text-gray-400">
-      <b>Dashboard:</b>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
+    <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
+        <p class="mb-2">This is some placeholder content the Dasboard tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+        <p>The tab JavaScript swaps classes to control the content visibility and styling.</p> 
+    </div>
   </TabItem>
   <TabItem>
     {#snippet titleSlot()}
       <span>Settings</span>
     {/snippet}
-    <p class="text-sm text-gray-500 dark:text-gray-400">
-      <b>Settings:</b>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
+    <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
+        <p class="mb-2">This is some placeholder content the Settings tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+        <p>The tab JavaScript swaps classes to control the content visibility and styling.</p> 
+    </div>
   </TabItem>
-  <TabItem>
+  <TabItem disabled>
     {#snippet titleSlot()}
-      <span>Users</span>
+      <span>Disabled</span>
     {/snippet}
     <p class="text-sm text-gray-500 dark:text-gray-400">
       <b>Users:</b>
@@ -242,6 +249,8 @@ If you want to use pills as a style for the tabs component use `tabStyle="pill"`
   </TabItem>
 </Tabs>
 ```
+
+
 
 ## Full width tabs
 
@@ -252,7 +261,7 @@ If you want to show the tabs on the full width relative to the parent element us
   import { Tabs, TabItem } from "flowbite-svelte";
 </script>
 
-<Tabs tabStyle="full" class="flex divide-x divide-gray-200 rounded-lg shadow-sm rtl:divide-x-reverse dark:divide-gray-700">
+<Tabs tabStyle="full">
   <TabItem class="w-full" open>
     {#snippet titleSlot()}
       <span>Profile</span>

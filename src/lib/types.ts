@@ -1583,9 +1583,8 @@ export interface TableSearchProps extends HTMLTableAttributes {
 }
 
 // tabs
-export interface TabsProps extends HTMLAttributes<HTMLUListElement> {
+export interface TabsProps extends TabsVaraints, HTMLAttributes<HTMLUListElement> {
   children: Snippet;
-  tabStyle?: TabsVaraints["tabStyle"];
   ulClass?: ClassValue;
   contentClass?: ClassValue;
   divider?: boolean;

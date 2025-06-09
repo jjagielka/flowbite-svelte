@@ -1,18 +1,23 @@
 <script lang="ts">
   import { tabItem, type TabitemProps } from "$lib";
-  import { createRawSnippet, getContext, onMount } from "svelte";
+  import { createRawSnippet, getContext, onMount, setContext } from "svelte";
   import type { TabState } from "./Tabs.svelte";
 
-  let { children, titleSlot, open = false, title = "Tab title", activeClass, inactiveClass, class: className, ...restProps }: TabitemProps = $props();
-
-  const { activeSnippet, tabPanels, tabStyle } = getContext<TabState>("tabsContext");
-
-  let { base, button, active, inactive } = $derived(tabItem({ tabStyle }));
+  let { children, titleSlot, open = false, title = "Tab title (default)", activeClass, inactiveClass, class: className, ...restProps }: TabitemProps = $props();
 
   const simpleSnippet = (name: string) =>
     createRawSnippet(() => ({
       render: () => `<span>${name}</span>`
     }));
+
+  let finalTtile = $state({ value: simpleSnippet(title) });
+
+  setContext("tabTitle", finalTtile);
+  $inspect(finalTtile);
+
+  const { activeSnippet, tabPanels, styling } = getContext<TabState>("tabsContext");
+
+  let { base, button, active, inactive } = $derived(tabItem({ tabStyle: styling.tabStyle, vertical: styling.vertical }));
 
   let titleSnippet = titleSlot ?? simpleSnippet(title);
 

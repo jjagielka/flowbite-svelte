@@ -2,7 +2,7 @@
   export type TabState = {
     tabPanels: SvelteMap<Snippet, Snippet>;
     activeSnippet: { value: Snippet | null };
-    tabStyle: TabsVaraints["tabStyle"];
+    styling: { tabStyle: TabsVaraints["tabStyle"]; vertical: boolean };
   };
 </script>
 
@@ -13,10 +13,12 @@
   import { SvelteMap } from "svelte/reactivity";
   import { tabs } from ".";
   import type { TabsVaraints } from "./theme";
+  import { fly } from "svelte/transition";
+  import TabContent from "./TabContent.svelte";
 
-  let { children, tabStyle = "none", class: className, contentClass, divider = true, ...restProps }: TabsProps = $props();
+  let { children, tabStyle = "none", vertical = false, class: className, contentClass, ...restProps }: TabsProps = $props();
 
-  const { base, content, divider: dividerClass } = $derived(tabs({ tabStyle, hasDivider: divider }));
+  const { base, ul, content } = $derived(tabs({ tabStyle, vertical }));
 
   // Generate a unique ID for the tab panel
   const panelId = `tab-panel-${Math.random().toString(36).substring(2)}`;
@@ -24,8 +26,14 @@
   const tabPanels: SvelteMap<Snippet, Snippet> = $state(new SvelteMap<Snippet, Snippet>());
 
   let activeSnippet: { value: Snippet | null } = $state({ value: null });
+  let styling = $state({ tabStyle, vertical });
 
-  setContext<TabState>("tabsContext", { tabPanels, activeSnippet, tabStyle });
+  $effect(() => {
+    styling.tabStyle = tabStyle;
+    styling.vertical = vertical;
+  });
+
+  setContext<TabState>("tabsContext", { tabPanels, activeSnippet, styling });
 
   onMount(() => {
     if (!activeSnippet.value && tabPanels.size) {
@@ -34,20 +42,38 @@
     }
   });
 
-  let dividerBool = $derived(["full", "pill"].includes(tabStyle) ? false : divider);
+  let transitionSlideIn = $derived({
+    x: "100%",
+    opacity: 1,
+    width: "100%",
+    height: "100%",
+    duration: 1500
+  });
+
+  let transitionSlideOut = $derived({
+    x: "-100%",
+    opacity: 0.9,
+    width: "100%",
+    height: "100%",
+    duration: 1500
+  });
 </script>
 
-<ul role="tablist" {...restProps} class={base({ class: clsx(className) })}>
-  {@render children()}
-</ul>
+{#snippet _content(snip?: Snippet)}
+  {#if snip}
+    <TabContent children={snip}></TabContent>
+  {/if}
+{/snippet}
 
-{#if dividerBool}
-  <div class={dividerClass()}></div>
-{/if}
+<div class={base({ class: clsx(className) })}>
+  <ul role="tablist" {...restProps} class={ul()}>
+    {@render children()}
+  </ul>
 
-<div class={content({ class: clsx(contentClass) })}>
   {#if activeSnippet.value}
-    {@render tabPanels.get(activeSnippet.value)?.()}
+    <div class={content({ class: clsx(contentClass) })}>
+      {@render _content(tabPanels.get(activeSnippet.value))}
+    </div>
   {/if}
 </div>
 
@@ -64,3 +90,9 @@
 @prop divider = true
 @prop ...restProps
 -->
+
+<style>
+  .transition-hack {
+    grid-area: 1/1/2/2;
+  }
+</style>

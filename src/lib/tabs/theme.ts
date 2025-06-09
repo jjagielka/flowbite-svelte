@@ -4,66 +4,71 @@ export type TabsVaraints = VariantProps<typeof tabs>;
 
 export const tabs = tv({
   slots: {
-    base: "flex space-x-2 rtl:space-x-reverse",
-    content: "p-4 bg-gray-50 rounded-lg dark:bg-gray-800 mt-4",
-    divider: "h-px bg-gray-200 dark:bg-gray-700",
+    base: "flex flex-col",
+    ul: "flex gap-2 rtl:space-x-reverse border-b",
+    // content: "p-4 bg-gray-50 rounded-lg dark:bg-gray-800 mt-4 grid overflow-hidden",
+    content: "mt-4 grid overflow-hidden",
   },
   variants: {
     tabStyle: {
-      full: {},
-      pill: {},
+      full: {
+        ul: "border-b-0 gap-0 rounded-lg shadow-sm divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700"
+      },
+      pill: {
+        ul: "border-b-0"
+      },
       underline: {
-        base: "-mb1-px",
       },
       none: {}
     },
-    hasDivider: {
-      true: {}
-    }
-  },
-  compoundVariants: [
-    {
-      tabStyle: ["full", "pill"],
-      hasDivider: true,
-      class: {
-        divider: "hidden"
+    vertical: {
+      true: {
+        base: "flex-row",
+        ul: "flex-col",
+        content: "mt-0 ms-4"
       }
-    }
-  ],
+    },
+  },
   defaultVariants: {
     tabStyle: "none",
-    hasDivider: true
   }
 });
 
 export const tabItem = tv({
   slots: {
     base: "group focus-within:z-10",
-    button: "inline-block text-sm font-medium text-center disabled:cursor-not-allowed",
-    content: "hidden",
-    active: "p-4 text-primary-600 bg-gray-100 rounded-t-lg dark:bg-gray-800 dark:text-primary-500",
-    inactive: "p-4 text-gray-500 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+    button: "p-4 inline-block rounded-t-lg text-sm font-medium text-center disabled:cursor-not-allowed",
+    active: "text-primary-600 bg-gray-100 dark:bg-gray-800 dark:text-primary-500",
+    inactive: "text-gray-500 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
 
   },
   variants: {
     tabStyle: {
       full: {
         base: "w-full",
-        active: "p-4 w-full rounded-none group-first:rounded-s-lg group-last:rounded-e-lg text-gray-900 bg-gray-100 focus:ring-4 focus:ring-primary-300 focus:outline-hidden dark:bg-gray-700 dark:text-white",
-        inactive: "p-4 w-full rounded-none group-first:rounded-s-lg group-last:rounded-e-lg text-gray-500 dark:text-gray-400 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-primary-300 focus:outline-hidden dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        button: "p-4 w-full rounded-none group-first:rounded-s-lg group-last:rounded-e-lg",
+        active: " text-gray-900 bg-gray-100 focus:ring-4 focus:ring-primary-300 focus:outline-hidden dark:bg-gray-700 dark:text-white",
+        inactive: "text-gray-500 dark:text-gray-400 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-primary-300 focus:outline-hidden dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
       },
       pill: {
-        active: "py-3 px-4 text-white bg-primary-600 rounded-lg",
-        inactive: "py-3 px-4 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+        button: "py-3 px-4 rounded-lg",
+        active: "text-white bg-primary-600",
+        inactive: "text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
       },
       underline: {
         base: "-mb-px",
-        active: "p-4 text-primary-600 border-b-2 border-primary-600 dark:text-primary-500 dark:border-primary-500 bg-transparent",
-        inactive: "p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 text-gray-500 dark:text-gray-400 bg-transparent"
+        button: "p-4 border-b-2 bg-transparent",
+        active: "border-primary-600 text-primary-600 dark:text-primary-500 dark:border-primary-500",
+        inactive: "border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 text-gray-500 dark:text-gray-400"
       },
       none: {
         active: "",
         inactive: ""
+      }
+    },
+    vertical: {
+      true: {
+        button: "w-full text-start"
       }
     },
     open: {
@@ -73,7 +78,7 @@ export const tabItem = tv({
     },
     disabled: {
       true: {
-        button: "cursor-not-allowed"
+        button: "cursor-not-allowed text-gray-100"
       }
     }
   },
